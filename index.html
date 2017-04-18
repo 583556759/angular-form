@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link href="lib/bootstrap.min.css" type="text/css" rel="stylesheet">
+		<link href="lib/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+		<style>
+			.wrapper{
+				width: 200px;
+				margin: 20px auto;
+			}
+			.error{
+				color:#a10;
+			}
+			/*p.error{
+				display: none;
+			}*/
+			p.success{
+				color:green;
+			}
+			input.error{
+				border:1px solid #a10;
+			}
+			.input_result{
+				position: relative;
+				top:-27px;
+				left:180px;
+			}
+		</style>
+	</head>
+	<body ng-controller="signUpController">
+	<div class="wrapper">
+		<h2>注册</h2>
+		<form name="signUpForm" ng-submit="submitForm()">
+			<div class="form-group" ng-class="{'has-success':signUpForm.username.$valid}">
+				<label>用户名:</label>
+				<input name="username"
+					   type="text"
+					   ng-minlength="4"
+					   ng-maxlength="32"
+					   required
+					   ng-model="userdata.username"
+					   class="form-control"
+						/>
+				<p class="fa fa-check input_result success"
+						ng-if="signUpForm.username.$valid"></p>
+				<p class="error" ng-if="signUpForm.username.$error.required &&
+					signUpForm.username.$touched">用户名不能为空</p>
+				<p class="error" ng-if="(signUpForm.username.$error.minlength ||
+					signUpForm.username.$error.maxlength) && signUpForm.username.$touched">用户名应该在4-32位之间
+				</p>
+			</div>
+			<div class="form-group" ng-class="{'has-success':signUpForm.password.$valid}">
+				<label>密码:</label>
+				<input name="password"
+					   type="password"
+					   ng-minlength="6"
+					   ng-maxlength="255"
+					   required
+					   ng-model="userdata.password"
+					   class="form-control"
+						/>
+				<p class="fa fa-check input_result success"
+				   ng-if="signUpForm.password.$valid"></p>
+				<p class="error" ng-if="signUpForm.password.$error.required &&
+					signUpForm.password.$touched">密码不能为空
+				</p>
+				<p class="error" ng-if="(signUpForm.password.$error.minlength ||
+					signUpForm.password.$error.maxlength) && signUpForm.password.$touched">密码应该在6-255位之间
+				</p>
+			</div>
+			<div class="form-group" ng-class="{'has-success':signUpForm.password1.$valid}">
+				<input name="password1"
+					   type="password"
+					   ng-model="userdata.password1"
+					   compare="userdata.password"
+					   required
+					   class="form-control"
+						/>
+				<p class="fa fa-check input_result success"
+				   ng-if="signUpForm.password1.$valid"></p>
+				<p class="error" ng-if="signUpForm.password1.$error.compare &&
+					signUpForm.password1.$touched">
+					两次密码不一致
+				</p>
+			</div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">注册</button>
+			</div>
+		</form>
+	</div>
+		<script src="lib/angular.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
